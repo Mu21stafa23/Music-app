@@ -8,7 +8,6 @@ export async function GET(request: Request) {
   if (!q) return NextResponse.json({ results: [] });
 
   try {
-    // استخدام YouTube oEmbed / Suggest أو استعلام مبسط لا يعتمد على Native Node modules معقدة
     const response = await fetch(
       `https://www.youtube.com/results?search_query=${encodeURIComponent(q)}`,
       {
@@ -19,7 +18,6 @@ export async function GET(request: Request) {
     );
     const html = await response.text();
     
-    // استخراج بيانات الـ initial data من صفحة بحث يوتيوب بدون cheerio
     const jsonMatch = html.match(/ytInitialData\s*=\s*({.+?});<\/script>/);
     let results: any[] = [];
 
@@ -32,10 +30,14 @@ export async function GET(request: Request) {
       for (const item of contents) {
         const video = item.videoRenderer;
         if (video) {
+          const thumbUrl = video.thumbnail?.thumbnails && video.thumbnail.thumbnails.length > 0 
+            ? video.thumbnail.thumbnails[0].url 
+            : `https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg`;
+
           results.push({
             videoId: video.videoId,
             title: video.title?.runs?.[0]?.text || 'No title',
-            thumbnail: video.thumbnail?.thumbnails?[0]?.url || `https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg`,
+            thumbnail: thumbUrl,
             artist: video.ownerText?.runs?.[0]?.text || video.longBylineText?.runs?.[0]?.text || '',
             duration: video.lengthText?.simpleText || '03:00',
             views: 0,
