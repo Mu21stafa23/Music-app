@@ -1,6 +1,6 @@
 # MOON Sound 🌙
 
-A music player for the browser with time-synced lyrics, live lyric translation and a karaoke mode. Available in Arabic and English, and installable as an app (PWA).
+A music player for the browser with time-synced lyrics, live lyric translation and a karaoke mode. Available in Arabic and English.
 
 **Live demo:** [moonsound.vercel.app](https://moonsound.vercel.app)
 
@@ -14,7 +14,6 @@ A music player for the browser with time-synced lyrics, live lyric translation a
 - **Listening extras** — playback speed, sleep timer, and ambient sounds (rain, waves, fire)
 - **Moon Drop** — share a 15-second moment of a song as a link with a short "vibe" label
 - **Arabic / English** interface with right-to-left support, plus dark and light themes
-- **Installable** — works as a PWA on phone and desktop
 
 ## Built with
 
